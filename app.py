@@ -77,14 +77,15 @@ chain_type_kwargs = {"prompt": prompt}
 
 # print(response)
 
-sample_prompts = ["what is the fastest speed for a greyhound dog?", "Why should we not feed chocolates to the dogs?", "Name two factors which might contribute to why some dogs might get scared?"]
+# sample_prompts = ["what is the fastest speed for a greyhound dog?", "Why should we not feed chocolates to the dogs?", "Name two factors which might contribute to why some dogs might get scared?"]
 
 def get_response(input):
   query = input
   chain_type_kwargs = {"prompt": prompt}
   qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents=True, chain_type_kwargs=chain_type_kwargs, verbose=True)
   response = qa(query)
-  return response
+  print(response['result'])
+  return response["result"]
 
 input = gr.Text(
                 label="Prompt",
@@ -97,9 +98,9 @@ input = gr.Text(
 iface = gr.Interface(fn=get_response, 
              inputs=input, 
              outputs="text",
-             title="My Dog PetCare Bot",
-             description="This is a RAG implementation based on Zephyr 7B Beta LLM.",
-             examples=sample_prompts,
+             title="Chat with Locally Available PDF",
+             description="This is a RAG implementation powered by Zephyr 7B Beta LLM and HuggingFace",
+            #  examples=sample_prompts,
              allow_screenshot=False,
              allow_flagging=False
              )

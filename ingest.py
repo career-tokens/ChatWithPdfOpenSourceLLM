@@ -13,8 +13,9 @@ embeddings = HuggingFaceBgeEmbeddings(
     encode_kwargs=encode_kwargs
 )
 
-loader = PyPDFLoader("pet.pdf")
+loader = PyPDFLoader("Bangalore_trip.pdf")
 documents = loader.load()
+print(documents)
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 texts = text_splitter.split_documents(documents)
 
